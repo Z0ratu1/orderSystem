@@ -27,7 +27,7 @@ import njwc.oms.mapper.*;
 public class ServiceImpl implements IService
 {
 
-	@Mapper
+	@Resource
     private ServiceMapper  serviceMapper;
 
 	//用户登录
@@ -93,7 +93,8 @@ public class ServiceImpl implements IService
 		// TODO Auto-generated method stub
 		String order_number = UUID.randomUUID().toString().replaceAll("-", "");
 		Timestamp create_time= new Timestamp(System.currentTimeMillis());//获取系统当前时间
-		T_order order=new T_order();
+		T_order order = new T_order();
+		//order.setId(0);
 		order.setOrder_number(order_number);
 		order.setCreate_time(create_time);
 		order.setStatus(0);
@@ -102,7 +103,8 @@ public class ServiceImpl implements IService
 		boolean sign1=serviceMapper.insertOrder(order);
 		if(sign1==false) return false;
 		
-		T_entry entry=new T_entry();
+		T_entry entry = new T_entry();
+		//entry.setId(0);
 		entry.setProduct_id(product_id);
 		entry.setProduct_price(product_price);
 		entry.setProduct_num(product_num);
@@ -157,6 +159,7 @@ public class ServiceImpl implements IService
 	public boolean insertProduct(Integer product_id, String name, double price, Integer seller_id) {
 		// TODO Auto-generated method stub
 		T_product product = new T_product();
+		//product.setId(0);
 		product.setProduct_id(product_id);
 		product.setName(name);
 		product.setPrice(price);
