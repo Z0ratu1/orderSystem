@@ -60,4 +60,6 @@ public interface ServiceMapper {
 	//�����̼Ҳ�ѯ��Ʒid
 	public abstract List<Integer> queryProduct_id(Integer seller_id);
 
+	public abstract boolean deleteEntry(String order_number);
+
 }

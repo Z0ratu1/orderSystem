@@ -39,6 +39,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     select * from t_order where user_id=#{user_id}
     </select>
     
+    <!-- 根据订单号查条目 -->
+    <select id="queryEntry" parameterType="String" resultType="njwc.oms.po.T_entry">
+    select * from t_entry where order_number=#{order_number}
+    </select>
+
     <!-- 改变订单状态 -->
     <update id="changeOrderStatus" >
     update t_order set status=#{status} where order_number=#{order_number}
@@ -60,10 +65,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
     <!-- 插入商品 -->
-    <insert id="insertProduct" parameterType="njwc.oms.po.T_product">
-    insert into t_product (product_id,name,price,seller_id)
+    <insert id="insertProduct" parameterType="T_product">
+    insert into t_product (product_id,name,type,price,seller_id)
     values
-    (#{product_id},#{name},#{price},#{seller_id})
+    (#{product_id},#{name},#{type},#{price},#{seller_id})
     </insert>
     
     <!-- 更新商品信息 -->
@@ -80,5 +85,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="queryProduct_id" parameterType="Integer" resultType="Integer">
     select product_id from t_product where seller_id=#{seller_id}
     </select>
+
+    <delete id="deleteEntry" parameterType="String">
+    delete from t_entry where order_number=#{order_number}
+    </delete>
 
 </mapper>

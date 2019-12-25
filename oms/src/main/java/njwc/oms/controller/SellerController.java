@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -48,12 +49,14 @@ public class SellerController {
 	}
 	
 	//�����²�Ʒ
+
 	@RequestMapping("insertProduct.do")
+	@PostMapping
 	@ResponseBody
 	public boolean insertProduct(Integer product_id,String name,Integer type,double price,HttpSession session)
 	{
 		T_seller seller=(T_seller) session.getAttribute("seller");
-		return iService.insertProduct(product_id, name,type, (double) price, seller.getId());
+		return iService.insertProduct(product_id, name,type, price, seller.getId());
 	}
 	
 	//������Ʒ��Ϣ

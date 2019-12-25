@@ -142,6 +142,7 @@ public class ServiceImpl implements IService
 	@Override
 	public boolean deleteOrder(String order_number) {
 		// TODO Auto-generated method stub
+		serviceMapper.deleteEntry(order_number);
 		return serviceMapper.deleteOrder(order_number);
 	}
 
