@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import njwc.oms.po.T_user;
 import njwc.oms.service.IService;
 import njwc.oms.vo.UserVO;
 
@@ -18,7 +19,7 @@ public class UserController {
 	@Resource
 	private IService iService=null;
 	
-	//ÓÃ»§µÇÂ¼
+	//ï¿½Ã»ï¿½ï¿½ï¿½Â¼
 	@RequestMapping("login0.do")
 	@ResponseBody
 	public UserVO login0(String account, String password,HttpSession session)
@@ -28,7 +29,7 @@ public class UserController {
 		return uservo;
 	}
 	
-	//ÏÔÊ¾ËùÓÐÉÌÆ·
+	//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 	@RequestMapping("queryProducts.do")
 	@ResponseBody
 	public List<Object> queryProducts()
@@ -36,25 +37,25 @@ public class UserController {
 		return iService.queryProducts();
 	}
 	
-	//´´½¨¶©µ¥
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("createOrder.do")
 	@ResponseBody
-	public boolean createOrder(Integer product_id,float product_price,Integer produce_num,HttpSession session)
+	public boolean createOrder(Integer product_id,double product_price,Integer product_num,HttpSession session)
 	{
-		Integer user_id=(Integer)session.getAttribute("user");
-		return iService.createOrder(user_id, product_id, product_price, produce_num);
+		T_user user=(T_user) session.getAttribute("user");
+		return iService.createOrder(user.getId(), product_id, product_price, product_num);
 	}
 
-	//²éÑ¯ÎÒµÄËùÓÐ¶©µ¥
+	//ï¿½ï¿½Ñ¯ï¿½Òµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½
 	@RequestMapping("queryMyOrders.do")
 	@ResponseBody
-	public List<Object> queryMyOrders(HttpSession session)
+	public List<Object> queryMyOrders(Integer status,HttpSession session)
 	{
-		Integer user_id=(Integer)session.getAttribute("user");
-		return iService.queryMyOrders(user_id);
+		T_user user=(T_user) session.getAttribute("user");
+		return iService.queryMyOrders(user.getId(),status);
 	}
 	
-	//¸üÐÂ¶©µ¥×´Ì¬
+	//ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½×´Ì¬
 	@RequestMapping("changeOrderStatus.do")
 	@ResponseBody
 	public boolean changeOrderStatus(String order_number,Integer status)
@@ -62,7 +63,7 @@ public class UserController {
 		return iService.changeOrderStatus(order_number, status);
 	}
 	
-	//É¾³ý¶©µ¥
+	//É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping("deleteOrder.do")
 	@ResponseBody
 	public boolean deleteOrder(String order_number)

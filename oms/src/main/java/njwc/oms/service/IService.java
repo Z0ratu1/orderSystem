@@ -11,79 +11,79 @@ import njwc.oms.vo.UserVO;
 @Resource
 public interface IService {
 	
-	//ÓÃ»§µÇÂ¼
+	//ï¿½Ã»ï¿½ï¿½ï¿½Â¼
 	public abstract UserVO login0(String account,String password);
 	
-	//ÉÌ»§µÇÂ¼
+	//ï¿½Ì»ï¿½ï¿½ï¿½Â¼
 	public abstract SellerVO login1(String account,String password);
 	
 	
 	
 	/*
-	 * //²éÑ¯ËùÓÐÉÌÆ·
+	 * //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 	 *
-	 * 1.½øÈëÊ×Ò³¿´¼ûµÄÉÌÆ·
-	 * 2.¿ÉÒÔ¸ù¾ÝÉÌÆ·ÀàÐÍ¶ÔÉÌÆ··ÖÀàÏÔÊ¾
-	 * 3.µã»÷ÉÌÆ·ÏÔÊ¾ÉÌÆ·×ÔÉíµÄÐÅÏ¢
+	 * 1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+	 * 2.ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	 * 3.ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ê¾ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
      */	
 	public abstract List<Object> queryProducts();
 	
 	/**
-	 *  //´´½¨¶©µ¥
-	 *  //µã»÷ÏÂµ¥Éú³É¶©µ¥²¢ÇÒ´´½¨ÌõÄ¿
+	 *  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 *  //ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	 * @param user_id,product_id,product_price,product_num
 	 * @return boolean
 	 */
 	public abstract boolean createOrder(Integer user_id,Integer product_id,double product_price,Integer product_num);
 	
 	/*
-	 * //²éÑ¯ÎÒµÄËùÓÐ¶©µ¥
+	 * //ï¿½ï¿½Ñ¯ï¿½Òµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½
 	 * 
-	 * 1.µã»÷¡°ÎÒµÄ¶©µ¥¡±ÏÔÊ¾µÄÎÒµÄËùÓÐ¶©µ¥
-	 * 2.¸ù¾Ý¶©µ¥×´Ì¬¸ø¶©µ¥·ÖÀà
-	 * 3.µã»÷Ò»¸ö¶©µ¥ÏÔÊ¾¶©µ¥ÏêÇé
-	 * 4.µã»÷¸¶¿î¡¢È·ÈÏÊÕ»õ¸Ä±ä¶©µ¥×´Ì¬
-	 * 5.µã»÷É¾³ýÉ¾³ý¶©µ¥
+	 * 1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½
+	 * 2.ï¿½ï¿½ï¿½Ý¶ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * 3.ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * 4.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¡¢È·ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Ä±ä¶©ï¿½ï¿½×´Ì¬
+	 * 5.ï¿½ï¿½ï¿½É¾ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
-	public abstract List<Object> queryMyOrders(Integer user_id);
+	public abstract List<Object> queryMyOrders(Integer user_id,Integer status);
 	
-	//¸üÐÂ¶©µ¥×´Ì¬£¨0£ºÎ´¸¶¿î£»1£ºÒÑ¸¶¿î£©
+	//ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½0ï¿½ï¿½Î´ï¿½ï¿½ï¿½î£»1ï¿½ï¿½ï¿½Ñ¸ï¿½ï¿½î£©
 	public abstract boolean changeOrderStatus(String order_number,Integer status);
 	
-	//É¾³ý¶©µ¥
+	//É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public abstract boolean deleteOrder(String order_number);
 	
 	
 	
-	//½ÇÉ«£º ÉÌ»§
+	//ï¿½ï¿½É«ï¿½ï¿½ ï¿½Ì»ï¿½
 	/**  
-	 *  //²éÑ¯ÎÒµÄËùÓÐ²úÆ·
-	 *  //ÉÌ»§µÇÂ¼Ê×Ò³ÏÔÊ¾¸ÃÉÌ»§Ëù·¢²¼µÄËùÓÐ²úÆ·
+	 *  //ï¿½ï¿½Ñ¯ï¿½Òµï¿½ï¿½ï¿½ï¿½Ð²ï¿½Æ·
+	 *  //ï¿½Ì»ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ò³ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½Æ·
 	 * @param seller_id
 	 * @return List<Object>
 	 */
 	public abstract List<Object> queryMyProducts(Integer seller_id);
 	
 	/**
-	 *  //É¾³ýÉÌÆ·
+	 *  //É¾ï¿½ï¿½ï¿½ï¿½Æ·
 	 * @param product_id
 	 * @return boolean
 	 */
 	public abstract boolean deleteProducts(Integer product_id);
 	
 	/**
-	 *  //²åÈëÉÌÆ·
-	 *  //ÉÌ»§·¢²¼ÐÂ²úÆ·
+	 *  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+	 *  //ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â²ï¿½Æ·
 	 * @param product_id
 	 * @param name
 	 * @param price
 	 * @param seller_id
 	 * @return
 	 */
-	public abstract boolean insertProduct(Integer product_id,String name,double price,Integer seller_id);
+	public abstract boolean insertProduct(Integer product_id,String name,Integer type,double price,Integer seller_id);
 
 	/**
-	 *  //¸ü¸ÄÉÌÆ·ÐÅÏ¢
+	 *  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢
 	 * @param product_id
 	 * @param name
 	 * @param price
@@ -92,7 +92,7 @@ public interface IService {
 	public abstract boolean updateProduct(Integer product_id,String name,double price);
 	
 	/**
-	 *  //²é¿´ÎÒµÄÂô³ö¼ÇÂ¼
+	 *  //ï¿½é¿´ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
 	 * @param product_id
 	 * @return
 	 */

@@ -9,7 +9,6 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
 import njwc.oms.po.T_entry;
@@ -18,6 +17,7 @@ import njwc.oms.po.T_product;
 import njwc.oms.po.T_seller;
 import njwc.oms.po.T_user;
 import njwc.oms.service.IService;
+import njwc.oms.vo.OrderVO;
 import njwc.oms.vo.SellerVO;
 import njwc.oms.vo.UserVO;
 import njwc.oms.mapper.*;
@@ -30,7 +30,7 @@ public class ServiceImpl implements IService
 	@Resource
     private ServiceMapper  serviceMapper;
 
-	//ÓÃ»§µÇÂ¼
+	//ï¿½Ã»ï¿½ï¿½ï¿½Â¼
 	@Override
 	public UserVO login0(String account, String password) {
 		// TODO Auto-generated method stub
@@ -41,7 +41,7 @@ public class ServiceImpl implements IService
 		UserVO uservo=new UserVO();
 		if(user==null)
 		{
-			uservo.setMessage("ÓÃ»§²»´æÔÚ£¡");
+			uservo.setMessage("ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½");
 			uservo.setUser(null);
 			return uservo;
 		}
@@ -51,11 +51,11 @@ public class ServiceImpl implements IService
 			uservo.setUser(user);
 			return uservo;
 		}
-		uservo.setMessage("ÃÜÂë´íÎó£¡");
+		uservo.setMessage("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		return uservo;
 	}
 
-	//ÉÌ»§µÇÂ¼
+	//ï¿½Ì»ï¿½ï¿½ï¿½Â¼
 	@Override
 	public SellerVO login1(String account, String password) {
 		// TODO Auto-generated method stub
@@ -66,7 +66,7 @@ public class ServiceImpl implements IService
 		SellerVO sellervo=new SellerVO();
 		if(seller==null)
 		{
-			sellervo.setMessage("ÓÃ»§²»´æÔÚ£¡");
+			sellervo.setMessage("ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½");
 			sellervo.setSeller(null);
 			return sellervo;
 		}
@@ -76,60 +76,69 @@ public class ServiceImpl implements IService
 			sellervo.setSeller(seller);
 			return sellervo;
 		}
-		sellervo.setMessage("ÃÜÂë´íÎó£¡");
+		sellervo.setMessage("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		return sellervo;
 	}
 
-	//²éÑ¯ËùÓÐ²úÆ·
+	//ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ð²ï¿½Æ·
 	@Override
 	public List<Object> queryProducts() {
 		// TODO Auto-generated method stub
 		return serviceMapper.queryProducts();
 	}
 
-	//´´½¨¶©µ¥
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@Override
 	public boolean createOrder(Integer user_id, Integer product_id, double product_price, Integer product_num) {
 		// TODO Auto-generated method stub
 		String order_number = UUID.randomUUID().toString().replaceAll("-", "");
-		Timestamp create_time= new Timestamp(System.currentTimeMillis());//»ñÈ¡ÏµÍ³µ±Ç°Ê±¼ä
-		T_order order = new T_order();
-		//order.setId(0);
+		Timestamp create_time= new Timestamp(System.currentTimeMillis());//ï¿½ï¿½È¡ÏµÍ³ï¿½ï¿½Ç°Ê±ï¿½ï¿½
+		T_order order=new T_order();
 		order.setOrder_number(order_number);
 		order.setCreate_time(create_time);
 		order.setStatus(0);
 		order.setUser_id(user_id);
-		//²åÈëÐÂ¶©µ¥
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½
 		boolean sign1=serviceMapper.insertOrder(order);
 		if(sign1==false) return false;
 		
-		T_entry entry = new T_entry();
-		//entry.setId(0);
+		T_entry entry=new T_entry();
 		entry.setProduct_id(product_id);
 		entry.setProduct_price(product_price);
 		entry.setProduct_num(product_num);
 		entry.setOrder_number(order_number);
-		//²åÈëÌõÄ¿
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 		boolean sign2=serviceMapper.insertEntry(entry);
 		if(sign2==false) return false;
 		return true;
 	}
 
-	//²éÑ¯ÎÒµÄ¶©µ¥
+	//ï¿½ï¿½Ñ¯ï¿½ÒµÄ¶ï¿½ï¿½ï¿½
 	@Override
-	public List<Object> queryMyOrders(Integer user_id) {
+	public List<Object> queryMyOrders(Integer user_id,Integer status) {
 		// TODO Auto-generated method stub
-		return serviceMapper.queryMyOrders(user_id);
+		List<Object> list=new ArrayList<Object>();
+		List<Object> result=new ArrayList<Object>();
+		list=serviceMapper.queryMyOrders(user_id, status);
+		for (Object object : list) {
+			T_order order=(T_order) object;
+			OrderVO ordervo=new OrderVO();
+			ordervo.setOrder(order);
+			List<Object> entry=serviceMapper.queryEntry(order.getOrder_number());
+			ordervo.setEntry(entry);
+			result.add(ordervo);
+		}
+		return result;
 	}
 
-	//¸Ä±ä¶©µ¥×´Ì¬
+	//ï¿½Ä±ä¶©ï¿½ï¿½×´Ì¬
 	@Override
 	public boolean changeOrderStatus(String order_number, Integer status) {
 		// TODO Auto-generated method stub
 		return serviceMapper.changeOrderStatus(order_number, status);
 	}
 
-	//É¾³ý¶©µ¥
+	//É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@Override
 	public boolean deleteOrder(String order_number) {
 		// TODO Auto-generated method stub
@@ -138,42 +147,42 @@ public class ServiceImpl implements IService
 
 	
 	/**
-	 *   //ÉÌ¼Ò¹¦ÄÜ
+	 *   //ï¿½Ì¼Ò¹ï¿½ï¿½ï¿½
 	 */
-	//²éÑ¯ÎÒ·¢²¼µÄËùÓÐÉÌÆ·
+	//ï¿½ï¿½Ñ¯ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 	@Override
 	public List<Object> queryMyProducts(Integer seller_id) {
 		// TODO Auto-generated method stub
 		return serviceMapper.queryMyProducts(seller_id);
 	}
 
-	//É¾³ýÒ»¼þÉÌÆ·
+	//É¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Æ·
 	@Override
 	public boolean deleteProducts(Integer product_id) {
 		// TODO Auto-generated method stub
 		return serviceMapper.deleteProducts(product_id);
 	}
 
-	//²åÈëÒ»¼þÉÌÆ·
+	//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Æ·
 	@Override
-	public boolean insertProduct(Integer product_id, String name, double price, Integer seller_id) {
+	public boolean insertProduct(Integer product_id, String name,Integer type, double price, Integer seller_id) {
 		// TODO Auto-generated method stub
 		T_product product = new T_product();
-		//product.setId(0);
 		product.setProduct_id(product_id);
 		product.setName(name);
+		product.setType(type);
 		product.setPrice(price);
 		product.setSeller_id(seller_id);
 		return serviceMapper.insertProduct(product);
 	}
 	
-	//¸ü¸ÄÉÌÆ·ÐÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢
 	public boolean updateProduct(Integer product_id,String name,double price) {
 		// TODO Auto-generated method stub
 		return serviceMapper.updateProduct(product_id, name, price);
 	}
 
-	//²é¿´ÎÒÂô³öµÄÌõÄ¿
+	//ï¿½é¿´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	@Override
 	public Map<Object,Object> queryMyEntry(Integer seller_id) {
 		// TODO Auto-generated method stub

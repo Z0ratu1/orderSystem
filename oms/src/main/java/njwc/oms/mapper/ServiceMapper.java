@@ -30,7 +30,10 @@ public interface ServiceMapper {
 	public abstract boolean insertEntry(T_entry entry);
 	
 	//��ѯ�ҵĶ���
-	public abstract List<Object> queryMyOrders(Integer user_id);
+	public abstract List<Object> queryMyOrders(@Param("user_id")Integer user_id,@Param("status")Integer status);
+	
+	//���ݶ����Ų���Ŀ
+	public abstract List<Object> queryEntry(String order_number);
 	
 	//�ı䶩��״̬
 	public abstract boolean changeOrderStatus(@Param("order_number")String order_number, @Param("status")Integer status);
