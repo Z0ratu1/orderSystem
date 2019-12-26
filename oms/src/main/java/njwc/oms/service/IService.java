@@ -96,5 +96,14 @@ public interface IService {
 	 * @param product_id
 	 * @return
 	 */
-	public abstract Map<Object,Object> queryMyEntry(Integer seller_id);
+	public abstract Map<Object, Object> queryMyEntry(Integer seller_id);
+	
+	// ��ɫ�� �̻�
+	/**
+	 * //��ѯ�ҵ����в�Ʒ //�̻���¼��ҳ��ʾ���̻������������в�Ʒ
+	 * 
+	 * @param product_name
+	 * @return List<Object>
+	 */
+	public abstract List<Object> searchingProduct(String product_name);
 }

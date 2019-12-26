@@ -199,4 +199,10 @@ public class ServiceImpl implements IService
 		return result;
 	}
 
+	@Override
+	public List<Object> searchingProduct(String product_name) {
+		// TODO Auto-generated method stub
+		return serviceMapper.serchingProduct(product_name);
+	}
+
 }
